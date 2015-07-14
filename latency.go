@@ -46,6 +46,6 @@ type LatencyResponse struct {
 	Latency  time.Duration
 }
 
-func (l LatencyResponse) String() string {
+func (l *LatencyResponse) String() string {
 	return fmt.Sprintf("%v %v %v", l.Response.Request.Method, l.Response.Request.URL, l.Latency)
 }
