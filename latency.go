@@ -85,8 +85,6 @@ func (l *LatencyRequest) Execute() (resp *LatencyResponse, err error) {
 		// Adapt request
 		l.Request.URL = newUrl
 		l.Request.Host = newUrl.Host
-	} else {
-		l.Redirects = append(l.Redirects, l.Request.URL.String())
 	}
 	l.Request.Header.Set("Cache control", "no-cache")
 
@@ -96,6 +94,9 @@ func (l *LatencyRequest) Execute() (resp *LatencyResponse, err error) {
 		// Redirect error
 		if strings.Contains(err.Error(), ErrLatencyRedirect) {
 			if loc := response.Header.Get("Location"); loc != "" {
+				if len(l.Redirects) == 0 {
+					l.Redirects = append(l.Redirects, l.Request.URL.String())
+				}
 				l.Redirects = append(l.Redirects, loc)
 				return l.Execute()
 			} else {
@@ -122,7 +123,7 @@ type LatencyResponse struct {
 }
 
 func (l *LatencyResponse) String() string {
-	if len(l.Redirects) > 1 {
+	if len(l.Redirects) > 0 {
 		return fmt.Sprintf("%v %v %v", l.Request.Method,
 			strings.Join(l.Redirects, " -> "), l.Latency)
 	}
