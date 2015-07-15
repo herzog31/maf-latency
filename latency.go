@@ -17,13 +17,14 @@ LatencyRequest and specify a timeout interval. Example:
 		Timeout: 10 * time.Second,
 	}
 
-To execute the latency measurement, simple call the Execute() method:
+To execute the latency measurement, simply call the Execute() method:
 
 	response, err := request.Execute()
 
 Note that the latency measurement follows redirects, but only measures the time
 of the last non-redirecting request. The call will return a LatencyResponse
-object.
+object, containing the latency and an array of traversed redirections as
+strings.
 */
 package latency
 
