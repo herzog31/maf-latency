@@ -7,19 +7,19 @@ Usage
 
 First specify a new http.Request like:
 
-req, _ := http.NewRequest("GET", "http://google.com", nil)
+	req, _ := http.NewRequest("GET", "http://google.com", nil)
 
 To use this request with the latency library you have to embed it in a
 LatencyRequest and specify a timeout interval. Example:
 
-request := LatencyRequest{
-	Request: req,
-	Timeout: 10 * time.Second,
-}
+	request := LatencyRequest{
+		Request: req,
+		Timeout: 10 * time.Second,
+	}
 
 To execute the latency measurement, simple call the Execute() method:
 
-response, err := request.Execute()
+	response, err := request.Execute()
 
 Note that the latency measurement follows redirects, but only measures the time
 of the last non-redirecting request. The call will return a LatencyResponse
