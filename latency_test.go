@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// TODO implement real tests ;)
+// TODO(mjb): implement real tests ;)
 func TestGoogle(t *testing.T) {
 	req, _ := http.NewRequest("GET", "http://google.com", nil)
 	request := LatencyRequest{
